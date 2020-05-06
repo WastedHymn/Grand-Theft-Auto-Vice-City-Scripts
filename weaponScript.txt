@@ -1,0 +1,32 @@
+{$CLEO .cs}
+const
+WEAP_MODEL = #MP5LNG
+WEAP_TYPE = 25
+TEXT = "TEXT"
+end
+0000: NOP
+while true
+0001: wait 100 ms                    
+:label1    
+    if
+   0AB0: key_pressed 0x53
+               then
+                   if
+                    0AB0: key_pressed 0x49
+                    then
+                     0247: request_model WEAP_MODEL
+                     038B: load_requested_models 
+                     01B1: give_player $player_char weapon WEAP_TYPE ammo 100 // Load the weapon model before using this 
+                     0249: release_model WEAP_MODEL                   
+                    //0512: show_permanent_text_box 'TEST1' // TEST1 ADDED TO THE AMERICAN.GXT FILE MANUALLY USING AN GTX EDITOR
+                    03E5: text_box 'TEST1'
+                    else
+                    end 
+                 else
+                 end      
+end
+:label2
+wait 1000 ms
+03E6: remove_text_box 'TEST1'
+0002: jump @label1 // JUMP LABEL1 TO MAKE A LOOP
+004E: end_thread 
